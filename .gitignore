@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+.env
+
+# Data (do not upload legal data)
+data/raw/*
+data/processed/*
+
+# Airflow
+airflow/logs/
+
+# MLflow
+mlflow/
+
+# OS files
+.DS_Store
+Thumbs.db
