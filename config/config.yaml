@@ -1,0 +1,139 @@
+
+
+# Project Information
+project:
+  name: "Legal Case Search System"
+  version: "1.0.0"
+  description: "AI-powered semantic search for Indian Supreme Court cases"
+  author: "Your Name"
+  date_created: "2025-01-28"
+
+# MongoDB Configuration
+mongodb:
+  uri: "mongodb://localhost:27017/"
+  database: "legal_cases"
+  collections:
+    cases: "cases"
+    citations: "citations"
+  
+  # Connection settings
+  timeout: 10000  # milliseconds
+  max_pool_size: 50
+
+# Data Paths
+paths:
+  data_root: "./data"
+  raw_pdfs: "./data/raw/supreme_court_pdfs"
+  extracted_json: "./data/processed/extracted_json"
+  models: "./models"
+  logs: "./logs"
+
+# PDF Extraction Settings
+pdf_extraction:
+  batch_size: 10
+  methods:
+    - "pymupdf"      # Primary method
+    - "pdfplumber"   # Fallback 1
+    - "pypdf2"       # Fallback 2
+  
+  max_page_count: 500
+  timeout_per_pdf: 30  # seconds
+  
+# NLP & Embedding Settings
+nlp:
+  embedding_model: "all-MiniLM-L6-v2"
+  embedding_dimension: 384
+  batch_size: 32
+  max_text_length: 5000  # characters
+  
+  # Alternative models (for future)
+  # embedding_model: "all-mpnet-base-v2"  # Better quality, slower
+  # embedding_model: "paraphrase-multilingual-MiniLM-L12-v2"  # For Hindi
+
+# Search Settings
+search:
+  default_results: 10
+  max_results: 50
+  min_similarity_threshold: 0.0
+  
+  # Similarity score ranges
+  high_similarity: 0.5    # >= 50% = High (Green)
+  medium_similarity: 0.35 # >= 35% = Medium (Yellow)
+  # < 35% = Low (Red)
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  reload: true
+  workers: 1
+  
+  # CORS settings
+  cors:
+    allow_origins: ["*"]
+    allow_methods: ["*"]
+    allow_headers: ["*"]
+
+# Frontend Configuration
+frontend:
+  title: "Legal Case Search System"
+  page_icon: "⚖️"
+  layout: "wide"
+  port: 8501
+
+# MLflow Configuration
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "legal_case_search"
+  
+  # Model registry
+  model_registry:
+    embedder: "case_embedder"
+    summarizer: "case_summarizer"
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # Log files
+  files:
+    main: "./logs/app.log"
+    api: "./logs/api.log"
+    extraction: "./logs/extraction.log"
+    errors: "./logs/errors.log"
+  
+  # Rotation settings
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
+
+# Performance Settings
+performance:
+  cache_size: 1000  # Number of embeddings to cache
+  use_gpu: false    # Set true if CUDA available
+  num_threads: 4    # For CPU operations
+
+# Data Quality Settings
+quality:
+  min_case_length: 100      # Minimum words in judgment
+  max_case_length: 100000   # Maximum words
+  require_title: false      # Don't require valid title
+  require_date: false       # Don't require valid date
+
+# Feature Flags
+features:
+  semantic_search: true
+  citation_network: false   # Coming soon
+  case_summarization: false # Coming soon
+  outcome_prediction: false # Coming soon
+  judge_analysis: false     # Coming soon
+
+# Environment
+environment: "development"  # development, production, testing
+
+# Deployment Settings (for future)
+deployment:
+  platform: "local"  # local, aws, azure, heroku
+  docker:
+    image_name: "legal-case-search"
+    tag: "latest"

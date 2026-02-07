@@ -42,3 +42,10 @@ pyyaml==6.0.1
 
 # Testing
 pytest==7.4.3
+
+# PDF Processing
+PyPDF2==3.0.1
+pdfplumber==0.11.0
+pymupdf==1.23.26
+python-magic-bin==0.4.14  # For Windows
+tqdm==4.66.1  # Progress bars
